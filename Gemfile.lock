@@ -1,0 +1,28 @@
+GIT
+  remote: git://github.com/hone/hammer.git
+  revision: 9e2bdf80fcfd135568333587e53bdfcd3410e77a
+  specs:
+    hammer (0.0.1.pre)
+      anvil-cli (~> 0.15)
+      thor (~> 0.15.0)
+      vise (~> 0.0.1.pre)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    anvil-cli (0.15.0)
+      progress (~> 2.4.0)
+      rest-client (~> 1.6.7)
+      thor (~> 0.15.2)
+    mime-types (1.21)
+    progress (2.4.0)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    thor (0.15.4)
+    vise (0.0.1.pre)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  hammer!
