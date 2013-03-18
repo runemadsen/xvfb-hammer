@@ -1,0 +1,4 @@
+just run:
+
+$ cd xvfb
+$ bundle exec hammer build

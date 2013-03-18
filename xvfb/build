@@ -1,12 +1,27 @@
 #!/bin/sh
 
-workspace_dir=$1
-output_dir=$2
+WORKSPACE_DIR=$1
+BUILD_DIR=$2
 
-curl http://pyyaml.org/download/libyaml/yaml-$VERSION.tar.gz -s
-tar zxf yaml-$VERSION.tar.gz
+install () {
+  DEB_URL=$1
+  DIR=$(mktemp -d)
+  curl -f $DEB_URL > $DIR/deb
+  dpkg-deb -x $DIR/deb $BUILD_DIR/sw
+}
 
-cd yaml-$VERSION
+echo "-----> Compiling dependencies"
+install http://launchpadlibrarian.net/41646495/x11proto-gl-dev_1.4.11-1_all.deb
+install http://ubuntu.mirrors.pair.com/archive//pool/main/m/mesa/libgl1-mesa-dev_7.7.1-1ubuntu2_amd64.deb
+
+echo "-----> Exporting compiler flags"
+export LDFLAGS="-L$BUILD_DIR/sw/lib -L$BUILD_DIR/sw/usr/lib"
+export CPPFLAGS="-I$BUILD_DIR/sw/usr/include"
+export PATH="$GEM_HOME/bin:$BUILD_DIR/sw/bin:$BUILD_DIR/sw/usr/bin:$PATH"
+
+echo "-----> Compiling xvfb from source"
+curl http://archive.ubuntu.com/ubuntu/pool/main/x/xorg-server/xorg-server_1.7.6.orig.tar.gz -s -o - | tar zxf -
+cd xorg-server-1.7.6
 env CFLAGS=-fPIC ./configure --enable-static --disable-shared --prefix=$output_dir
 make
 make install
