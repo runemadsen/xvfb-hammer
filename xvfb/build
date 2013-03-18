@@ -3,10 +3,10 @@
 workspace_dir=$1
 output_dir=$2
 
-curl -O http://archive.ubuntu.com/ubuntu/pool/main/x/xorg-server/xorg-server_1.7.6.orig.tar.gz -s
-tar -zxf xorg-server_1.7.6.orig.tar.gz
+curl http://pyyaml.org/download/libyaml/yaml-$VERSION.tar.gz -s
+tar zxf yaml-$VERSION.tar.gz
 
-cd xorg-server-1.7.6
+cd yaml-$VERSION
 env CFLAGS=-fPIC ./configure --enable-static --disable-shared --prefix=$output_dir
 make
 make install
